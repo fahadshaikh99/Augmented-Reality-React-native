@@ -16,7 +16,8 @@ import {
   ViroSurface,
   Viro3DObject,
   ViroNode,
-  ViroQuad
+  ViroQuad,
+  ViroARPlane
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -52,13 +53,63 @@ var MainScene = createReactClass({
         resources={[require('../../res/icecreamman_anim/icecreamman_diffuse.png'),
                     require('../../res/icecreamman_anim/icecreamman_normal.png'),
                     require('../../res/icecreamman_anim/icecreamman_specular.png')]}
-        position={[0, -1, -2]}
+                    position={[-3, -1, -5]}
         scale={[.9, .9, .9]}
         type="VRX"
-        dragType="FixedToWorld" onDrag={()=>{}}
+        dragType="FixedToPlane" onDrag={()=>{}}
         onClick={this._onTappedIcecream}
         animation={{name:"02", run:this.state.runAnimation, loop:true,}}
+    
       />
+ 
+<Viro3DObject
+        source={require('../../res/monster/monster.vrx')}
+        resources={[
+          require('../../res/monster/Mutant_diffuse.png'),
+          require('../../res/monster/Mutant_normal.png')
+        ]}
+       
+                    position={[0, -1, -2]}             
+        scale={[0.01, 0.01, 0.01]}
+        type="VRX"
+        dragType="FixedToWorld" onDrag={()=>{}}
+        
+        animation={{name:'mixamo.com',
+        run:true,
+        loop:true,
+        delay:1000
+      }}
+      /> 
+
+<ViroARPlane minHeight={.5} minWidth={.5} alignment={"Horizontal"}>
+
+        <ViroNode key="monster"
+          dragType="FixedToWorld">
+          <Viro3DObject
+            source={require('../../res/monster/monster.vrx')}
+            resources={[
+              require('../../res/monster/Mutant_diffuse.png'),
+              require('../../res/monster/Mutant_normal.png')
+            ]}
+            position={[0, -1, -2]}  
+            scale={[0.5, 0.5, 0.5]}
+            type="VRX"
+            animation={{name:'mixamo.com',
+              run:true,
+              loop:true,
+              delay:1000
+            }}
+          />
+          <ViroQuad
+            position={[0,0,0]}
+            rotation={[-90, 0, 0]}
+            height={10} 
+            width={10}
+            arShadowReceiver={true}
+          />
+        </ViroNode>
+      </ViroARPlane>
+
 
 <ViroQuad
         rotation={[-90, 0, 0]}
